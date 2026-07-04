@@ -50,6 +50,7 @@ const createLocation = async ({ fields, files }) => {
   const locationData = {
     name: fields.name,
     address: fields.address,
+    firebaseUid: fields.firebaseUid,
     contact: fields.contact || '',
     website: fields.website || '',
     category: fields.category || '',
@@ -75,8 +76,14 @@ const getLocationById = async (id) => {
   return location;
 };
 
-const updateLocation = async (id, { fields, files }) => {
+const updateLocation = async (id, { fields, files, firebaseUid }) => {
   const existing = await getLocationById(id); // throws 404 if not found
+
+  if (existing.firebaseUid !== firebaseUid) {
+    const err = new Error('Unauthorized. You do not own this location.');
+    err.statusCode = 403;
+    throw err;
+  }
 
   let newPhotoUrls = [];
   if (files && files.length > 0) {
@@ -111,8 +118,13 @@ const updateLocation = async (id, { fields, files }) => {
   return locationRepository.updateById(id, updateData);
 };
 
-const deleteLocation = async (id) => {
-  await getLocationById(id); // throws 404 if not found
+const deleteLocation = async (id, firebaseUid) => {
+  const existing = await getLocationById(id); // throws 404 if not found
+  if (existing.firebaseUid !== firebaseUid) {
+    const err = new Error('Unauthorized. You do not own this location.');
+    err.statusCode = 403;
+    throw err;
+  }
   return locationRepository.deleteById(id);
 };
 

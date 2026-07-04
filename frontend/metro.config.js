@@ -18,4 +18,4 @@ config.resolver = {
 };
 
 // 3. Wrap the modified config with NativeWind and export it
-module.exports = withNativeWind(config, { input: "./app/global.css" });
+module.exports = withNativeWind(config, { input: "./styles/global.css" });

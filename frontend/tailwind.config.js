@@ -1,17 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}", 
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./features/**/*.{js,jsx,ts,tsx}",
+  ],
 
   presets: [require("nativewind/preset")],
 
   theme: {
-
     extend: {
-
       colors: {
-
         background: "var(--background)",
 
         foreground: "var(--foreground)",
@@ -63,11 +63,9 @@ module.exports = {
         "text-secondary": "#49769F",
 
         "text-inverse": "#FFFFFF",
-
       },
 
       borderRadius: {
-
         sm: "0.25rem",
 
         md: "0.5rem",
@@ -75,13 +73,9 @@ module.exports = {
         lg: "1rem",
 
         full: "9999px",
-
       },
-
     },
-
   },
 
   plugins: [],
-
 };

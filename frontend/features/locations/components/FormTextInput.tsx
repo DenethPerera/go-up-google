@@ -17,7 +17,7 @@ export function FormTextInput({ label, error, className, onFocus, onBlur, ...res
         placeholderTextColor="#9ca3af"
         className={[
           "input-field",
-          isFocused ? "input-field-focus" : "",
+          
           error ? "border-destructive" : "",
           className ?? "",
         ]
