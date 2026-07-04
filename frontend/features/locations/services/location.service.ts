@@ -1,4 +1,5 @@
 import axiosInstance from '@/lib/axiosInstance';
+import { auth } from '@/config/firebase';
 import { LocationDocument, PhotoAsset } from '../types';
 
 export interface CreateLocationPayload {
@@ -59,11 +60,24 @@ export const submitLocation = async (
   
   console.log('[submitLocation] Calling:', url);
 
+  // Get current session Firebase ID Token if logged in
+  const headers: Record<string, string> = {};
+  try {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const idToken = await currentUser.getIdToken(false);
+      headers['Authorization'] = `Bearer ${idToken}`;
+    }
+  } catch (tokenErr) {
+    console.warn('[submitLocation] Failed to get ID token:', tokenErr);
+  }
+
   let response: Response;
   try {
     response = await fetch(url, {
       method: 'POST',
       body: formData,
+      headers,
       // Do NOT set Content-Type manually — fetch sets it with the correct
       // multipart boundary automatically when body is a FormData object.
     });

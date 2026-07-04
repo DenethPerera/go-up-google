@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { AuthProvider, useAuth } from "../context/auth";
 import queryClient from "../lib/queryClient";
-import "./global.css";
+import "../styles/global.css";
 
 function InitialLayout() {
   const { user, loading } = useAuth();
@@ -12,25 +12,41 @@ function InitialLayout() {
   const router = useRouter();
 
   useEffect(() => {
+    // Do nothing until Firebase has resolved the auth state.
+    // This prevents any premature navigation / flashing.
     if (loading) return;
 
     const inAuthGroup = segments[0] === "(auth)";
 
     if (!user && !inAuthGroup) {
+      // Not logged in — send to login screen
       router.replace("/login" as any);
     } else if (user && inAuthGroup) {
+      // Already logged in but on an auth screen — send to app
       router.replace("/(tabs)" as any);
     }
   }, [user, loading, segments, router]);
 
+  // ─── While Firebase resolves the session, show a branded splash ───────────
+  // This is the key fix: render NOTHING (no Stack, no screens) until we know
+  // whether the user is logged in. This eliminates the white flash of
+  // (app)/index.tsx that appeared before the redirect fired.
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center bg-background">
-        <ActivityIndicator size="large" color="#1A73E8" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#000000", // brand primary — no NativeWind needed here
+        }}
+      >
+        <ActivityIndicator size="large" color="#ffffff" />
       </View>
     );
   }
 
+  // ─── Auth state resolved — mount the correct stack ────────────────────────
   return (
     <Stack screenOptions={{ headerShown: false }}>
       {user ? (

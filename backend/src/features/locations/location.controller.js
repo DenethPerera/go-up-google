@@ -7,7 +7,7 @@ const locationService = require('./location.service');
 
 const create = async (req, res) => {
   const location = await locationService.createLocation({
-    fields: req.body,
+    fields: { ...req.body, firebaseUid: req.uid },
     files: req.files,
   });
   res.status(201).json({ success: true, data: location });
@@ -27,12 +27,13 @@ const update = async (req, res) => {
   const location = await locationService.updateLocation(req.params.id, {
     fields: req.body,
     files: req.files,
+    firebaseUid: req.uid,
   });
   res.status(200).json({ success: true, data: location });
 };
 
 const remove = async (req, res) => {
-  await locationService.deleteLocation(req.params.id);
+  await locationService.deleteLocation(req.params.id, req.uid);
   res.status(200).json({ success: true, message: 'Location deleted successfully.' });
 };
 

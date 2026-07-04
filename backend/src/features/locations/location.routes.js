@@ -1,6 +1,7 @@
 const express = require('express');
 const upload = require('../../middleware/upload');
 const { asyncHandler } = require('../../middleware/errorHandler');
+const { firebaseAuth } = require('../../middleware/firebaseAuth');
 const controller = require('./location.controller');
 
 const router = express.Router();
@@ -15,13 +16,13 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(upload.array('photos', 10), asyncHandler(controller.create))
+  .post(firebaseAuth, upload.array('photos', 10), asyncHandler(controller.create))
   .get(asyncHandler(controller.getAll));
 
 router
   .route('/:id')
   .get(asyncHandler(controller.getOne))
-  .put(upload.array('photos', 10), asyncHandler(controller.update))
-  .delete(asyncHandler(controller.remove));
+  .put(firebaseAuth, upload.array('photos', 10), asyncHandler(controller.update))
+  .delete(firebaseAuth, asyncHandler(controller.remove));
 
 module.exports = router;

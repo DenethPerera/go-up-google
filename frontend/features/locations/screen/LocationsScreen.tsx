@@ -31,7 +31,7 @@ export default function LocationsScreen() {
       </View>
 
       {/* WHITE BODY CONTAINER */}
-      <View className="flex-1 bg-white rounded-t-[32px] overflow-hidden shadow-lg border-t border-white/20">
+      <View className="flex-1 bg-background rounded-t-[32px] overflow-hidden shadow-lg border-t border-white/20">
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} className="flex-1">
           <ScrollView
             contentContainerStyle={{ paddingTop: 24, paddingHorizontal: 20, paddingBottom: 40 }}

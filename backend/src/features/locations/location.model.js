@@ -22,6 +22,11 @@ const locationSchema = new mongoose.Schema(
       required: [true, 'Full address is required'],
       trim: true,
     },
+    firebaseUid: {
+      type: String,
+      required: [true, 'Firebase User ID is required'],
+      index: true,
+    },
     contact: {
       type: String,
       trim: true,

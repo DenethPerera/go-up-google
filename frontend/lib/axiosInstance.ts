@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { auth } from '../config/firebase';
 
 /**
  * Single Axios instance for the entire app.
@@ -23,12 +24,22 @@ const axiosInstance = axios.create({
 });
 
 // ─── Request Interceptor ──────────────────────────────────────────────────────
-// Attach auth tokens here in the future (e.g. Firebase ID token).
+// Automatically attaches the current Firebase user's ID token as a Bearer token
+// on every outgoing request. If the user is not logged in, the header is omitted.
 axiosInstance.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    try {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // getIdToken(true) forces a refresh if the token is expired (<1hr TTL)
+        const idToken = await currentUser.getIdToken(false);
+        config.headers.Authorization = `Bearer ${idToken}`;
+      }
+    } catch (err) {
+      console.warn('[axiosInstance] Failed to attach ID token:', err);
+    }
+
     console.log(`[API] ${config.method?.toUpperCase()} → ${config.baseURL}${config.url}`);
-    // const token = getToken(); // placeholder for future auth
-    // if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => Promise.reject(error)
