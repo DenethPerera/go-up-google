@@ -25,7 +25,13 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.denethperera.goupgoogle",
-      "usesCleartextTraffic": true
+      "usesCleartextTraffic": true,
+
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDWFNjtk17TaI3zPvpudS1C75CAr4pXSYI"
+        }
+      }
     },
     "web": {
       "output": "static",

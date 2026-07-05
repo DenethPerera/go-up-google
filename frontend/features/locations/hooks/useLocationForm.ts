@@ -16,6 +16,8 @@ const INITIAL_FORM: LocationFormState = {
   description: "",
   email: "",
   workingHours: "",
+  latitude: undefined,
+  longitude: undefined,
 };
 
 const INITIAL_SOCIAL: SocialMediaState = {
@@ -43,7 +45,7 @@ export function useLocationForm() {
   const { mutate, isPending: isSubmitting } = useSubmitLocation({ onSuccess: reset });
 
   // ─── Field updates ────────────────────────────────────────────────────────
-  const updateField = (field: keyof LocationFormState, value: string) => {
+  const updateField = (field: keyof LocationFormState, value: string | number | undefined) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 

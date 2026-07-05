@@ -1,19 +1,21 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-//import {icons} from "../../constants/icon";
+
 import {
   ActivityIndicator,
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { ICONS } from "../../constants/icon";
+import { IMAGES } from "../../constants/image";
 import { useAuth } from "../../context/auth";
 
 export default function LoginScreen() {
@@ -91,20 +93,22 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 20}
       className="auth-shell"
     >
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         <View className="container-centered">
           {/* Header Section */}
           <View className="mb-8 items-center">
-            <View className="mb-4 h-16 w-16 items-center justify-center rounded-3xl bg-primary shadow-sm">
-              <AntDesign name="appstore" size={28} color="white" />
+           
+            <View className="mb-4 items-center justify-center">
+              <Image source={IMAGES.HeaderLogo} style={{ width: 200, height: 200 }} />
             </View>
-            <Text className="h1 text-foreground">Welcome back</Text>
+           
             <Text className="mt-2 text-center text-sm font-medium text-muted-foreground">
               Sign in to continue to your workspace.
             </Text>

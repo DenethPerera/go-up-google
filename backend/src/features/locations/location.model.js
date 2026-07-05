@@ -66,6 +66,14 @@ const locationSchema = new mongoose.Schema(
       type: [String], // Cloudinary secure_url strings
       default: [],
     },
+    latitude: {
+      type: Number,
+      required: false,
+    },
+    longitude: {
+      type: Number,
+      required: false,
+    },
     status: {
       type: String,
       enum: ['pending', 'approved', 'rejected'],

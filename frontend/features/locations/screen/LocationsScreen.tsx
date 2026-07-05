@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-na
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { BusinessDetailsSection } from "@/features/locations/components/BusinessDetailsSection";
+import { MapLocationPicker } from "@/features/locations/components/MapLocationPicker";
 import { MediaAssetsSection } from "@/features/locations/components/MediaAssetsSection";
 import { SocialMediaSection } from "@/features/locations/components/SocialMediaSection";
 import { SubmitBar } from "@/features/locations/components/SubmitBar";
@@ -38,6 +39,17 @@ export default function LocationsScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
+            <MapLocationPicker
+              latitude={form.latitude}
+              longitude={form.longitude}
+              onLocationChange={(lat, lng, address) => {
+                updateField("latitude", lat);
+                updateField("longitude", lng);
+                if (address) {
+                  updateField("address", address);
+                }
+              }}
+            />
             <BusinessDetailsSection values={form} errors={errors} onChange={updateField} />
             <SocialMediaSection values={social} onChange={updateSocial} />
             <MediaAssetsSection photos={photos} onAddPhoto={addPhoto} onRemovePhoto={removePhoto} />

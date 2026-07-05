@@ -9,7 +9,7 @@ import { SectionCard } from "./SectionCard";
 interface Props {
   values: LocationFormState;
   errors: LocationFormErrors;
-  onChange: (field: keyof LocationFormState, value: string) => void;
+  onChange: (field: keyof LocationFormState, value: any) => void;
 }
 
 export function BusinessDetailsSection({ values, errors, onChange }: Props) {

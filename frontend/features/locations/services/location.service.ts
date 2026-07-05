@@ -11,6 +11,8 @@ export interface CreateLocationPayload {
   description: string;
   email: string;
   workingHours: string;
+  latitude?: number;
+  longitude?: number;
   social: {
     facebook: string;
     instagram: string;
@@ -40,6 +42,13 @@ export const submitLocation = async (
   formData.append('description', payload.description);
   formData.append('email', payload.email);
   formData.append('workingHours', payload.workingHours);
+
+  if (payload.latitude !== undefined && payload.latitude !== null) {
+    formData.append('latitude', String(payload.latitude));
+  }
+  if (payload.longitude !== undefined && payload.longitude !== null) {
+    formData.append('longitude', String(payload.longitude));
+  }
 
   // Social is a nested object — serialize to JSON so multer can parse it
   formData.append('social', JSON.stringify(payload.social));

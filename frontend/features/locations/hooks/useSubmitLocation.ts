@@ -9,14 +9,7 @@ interface UseSubmitLocationOptions {
   onSuccess?: (data: LocationDocument) => void;
 }
 
-/**
- * TanStack Query mutation for submitting a new location.
- *
- * Handles:
- * - Haptic feedback on success / error
- * - User-facing alerts for both outcomes
- * - Exposes `mutate`, `isPending`, and `error` to the caller
- */
+
 export function useSubmitLocation({ onSuccess }: UseSubmitLocationOptions = {}) {
   return useMutation<LocationDocument, Error, CreateLocationPayload>({
     mutationFn: submitLocation,
