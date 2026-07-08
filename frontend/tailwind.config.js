@@ -5,6 +5,7 @@ module.exports = {
     "./app/**/*.{js,jsx,ts,tsx}", 
     "./components/**/*.{js,jsx,ts,tsx}",
     "./features/**/*.{js,jsx,ts,tsx}",
+    
   ],
 
   presets: [require("nativewind/preset")],
@@ -27,6 +28,10 @@ module.exports = {
         secondary: "var(--secondary)",
 
         "secondary-foreground": "var(--secondary-foreground)",
+
+        thirdinary: "var(--thirdinary)",
+
+        "thirdinary-foreground": "var(--thirdinary-foreground)",
 
         muted: "var(--muted)",
 

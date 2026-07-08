@@ -14,8 +14,8 @@ export function SocialInput({ icon, iconColor, className, onFocus, onBlur, ...re
   return (
     <View
       className={[
-        "mb-3 flex-row items-center rounded-2xl border px-4 bg-input-background",
-        isFocused ? "border-primary bg-white " : "border-border",
+        "mb-3 flex-row items-center rounded-2xl border px-4",
+        isFocused ? "border-blue-400  " : "border-white",
         className ?? "",
       ]
         .filter(Boolean)
