@@ -18,6 +18,7 @@ module.exports = {
         foreground: "var(--foreground)",
 
         card: "var(--card)",
+        formCard: "var(--form-card)",
 
         "card-foreground": "var(--card-foreground)",
 

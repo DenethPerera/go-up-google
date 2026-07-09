@@ -22,12 +22,7 @@ export interface CreateLocationPayload {
   photos: PhotoAsset[];
 }
 
-/**
- * POST /api/locations
- *
- * Sends a multipart/form-data request so both text fields and
- * binary image files travel in a single request.
- */
+
 export const submitLocation = async (
   payload: CreateLocationPayload
 ): Promise<LocationDocument> => {

@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/db');
-const locationRoutes = require('./features/locations/location.routes');
+const locationRoutes  = require('./features/locations/location.routes');
+const categoryRoutes  = require('./features/categories/category.routes');
 const { globalErrorHandler } = require('./middleware/errorHandler');
 
 // ─── Database ────────────────────────────────────────────────────────────────
@@ -21,10 +22,11 @@ app.get('/api/status', (_req, res) => {
   res.json({ success: true, message: 'Go-Up-Google API is running.' });
 });
 
-// ─── Feature Routes ───────────────────────────────────────────────────────────
-app.use('/api/locations', locationRoutes);
 
-// ─── Global Error Handler (must be LAST) ─────────────────────────────────────
+app.use('/api/locations',  locationRoutes);
+app.use('/api/categories', categoryRoutes);
+
+
 app.use(globalErrorHandler);
 
 // ─── Start Server ─────────────────────────────────────────────────────────────

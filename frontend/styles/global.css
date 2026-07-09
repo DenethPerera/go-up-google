@@ -104,6 +104,7 @@
 
   --card: #3c5282;
   --card-foreground: #F6F8FC;
+  --form-card: #2f3b65;
 
   --popover: #354567;
   --popover-foreground: #F6F8FC;
@@ -240,12 +241,19 @@
     @apply w-full rounded-3xl border border-muted bg-card p-6 text-card-foreground shadow-sm;
   }
 
+   .form-input-card {
+    @apply w-full rounded-3xl border border-muted bg-formCard p-6 text-card-foreground shadow-sm;
+  }
+
+
+
+
   .input-label {
     @apply mb-1.5 text-sm font-semibold text-white;
   }
 
   .input-field {
-    @apply w-full text-white rounded-2xl border border-white bg-[#3C5282]  px-4 py-3.5 text-base text-foreground transition-colors;
+    @apply w-full text-white rounded-2xl border border-white  px-4 py-3.5 text-base text-foreground transition-colors;
   }
 
   .input-field:focus {

@@ -11,7 +11,7 @@ interface SectionCardProps {
 
 export function SectionCard({ icon, title, subtitle, children, className }: SectionCardProps) {
   return (
-    <View className={["card", "mb-5", "rounded-3xl", className ?? ""].filter(Boolean).join(" ")}>
+    <View className={["form-input-card", "mb-5", "rounded-3xl", className ?? ""].filter(Boolean).join(" ")}>
       <View className="mb-4 flex-row items-center mr-6">
         <View className="relative h-12 w-12 mr-3 items-center justify-center rounded-[18px] bg-white/10">{icon}</View> 
         <View className="flex-1">
