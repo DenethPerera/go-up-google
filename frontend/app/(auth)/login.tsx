@@ -1,10 +1,11 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-//import {icons} from "../../constants/icon";
+
 import {
   ActivityIndicator,
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -14,6 +15,7 @@ import {
   View,
 } from "react-native";
 import { ICONS } from "../../constants/icon";
+import { IMAGES } from "../../constants/image";
 import { useAuth } from "../../context/auth";
 
 export default function LoginScreen() {
@@ -22,6 +24,7 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const { signInWithEmail, signInWithGoogle } = useAuth();
   const router = useRouter();
@@ -91,20 +94,24 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 20}
       className="auth-shell"
     >
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         <View className="container-centered">
           {/* Header Section */}
           <View className="mb-8 items-center">
-            <View className="mb-4 h-16 w-16 items-center justify-center rounded-3xl bg-primary shadow-sm">
-              <AntDesign name="appstore" size={28} color="white" />
+            <View className="mb-4 items-center justify-center">
+              <Image
+                source={IMAGES.HeaderLogo}
+                style={{ width: 200, height: 200 }}
+              />
             </View>
-            <Text className="h1 text-foreground">Welcome back</Text>
+
             <Text className="mt-2 text-center text-sm font-medium text-muted-foreground">
               Sign in to continue to your workspace.
             </Text>
@@ -129,7 +136,7 @@ export default function LoginScreen() {
                 value={email}
                 onChangeText={setEmail}
                 placeholder="name@company.com"
-                placeholderTextColor="#6ea2b3" // Using your border/muted tone
+                placeholderTextColor="#ffffff" // Using your border/muted tone
                 keyboardType="email-address"
                 autoCapitalize="none"
                 className="input-field"
@@ -154,17 +161,24 @@ export default function LoginScreen() {
               </View>
 
               {/* Custom wrapping to match .input-field visually while allowing the icon */}
-              <View className="flex-row items-center rounded-2xl border border-border bg-input-background px-4 focus-within:border-primary">
+              <View
+                className={`flex-row items-center rounded-2xl border px-4 ${
+                  passwordFocused ? "border-primary" : "border-white"
+                }`}
+              >
                 <TextInput
                   value={password}
                   onChangeText={setPassword}
                   placeholder="••••••••"
-                  placeholderTextColor="#6ea2b3"
+                  placeholderTextColor="#ffffff"
                   secureTextEntry={!showPassword}
                   autoCapitalize="none"
                   className="flex-1 py-3.5 text-base text-foreground"
                   editable={!submitting}
+                  onFocus={() => setPasswordFocused(true)}
+                  onBlur={() => setPasswordFocused(false)}
                 />
+
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   disabled={submitting}
@@ -173,7 +187,7 @@ export default function LoginScreen() {
                   <Feather
                     name={showPassword ? "eye-off" : "eye"}
                     size={20}
-                    color="#49769f" // Matches --muted-foreground
+                    color="#ffffff"
                   />
                 </TouchableOpacity>
               </View>

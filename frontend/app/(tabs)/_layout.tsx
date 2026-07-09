@@ -25,7 +25,7 @@ export default function TabsLayout() {
           paddingBottom: insets.bottom, // iPhone home bar eken icons cover nowenna
           paddingTop: 10,
           
-          backgroundColor: "rgba(255, 255, 255, 0.95)", // Premium glass feel
+          backgroundColor: "#24315A", // Premium glass feel
           
           // Udin thiyena corners deka witharak round karanna
           borderTopLeftRadius: 30,

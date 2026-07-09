@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 
 interface FormTextInputProps extends TextInputProps {
@@ -7,33 +7,31 @@ interface FormTextInputProps extends TextInputProps {
   className?: string;
 }
 
-export function FormTextInput({ label, error, className, onFocus, onBlur, ...rest }: FormTextInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
-
+export function FormTextInput({
+  label,
+  error,
+  className,
+  ...rest
+}: FormTextInputProps) {
   return (
     <View className="mb-4">
       <Text className="input-label">{label}</Text>
+
       <TextInput
-        placeholderTextColor="#9ca3af"
+        placeholderTextColor="#C7D3EA"
         className={[
           "input-field",
-          
-          error ? "border-destructive" : "",
-          className ?? "",
+          error && "border-destructive",
+          className,
         ]
           .filter(Boolean)
           .join(" ")}
-        onFocus={(e) => {
-          setIsFocused(true);
-          onFocus?.(e);
-        }}
-        onBlur={(e) => {
-          setIsFocused(false);
-          onBlur?.(e);
-        }}
         {...rest}
       />
-      {error ? <Text className="error-text">{error}</Text> : null}
+
+      {error ? (
+        <Text className="error-text">{error}</Text>
+      ) : null}
     </View>
   );
 }

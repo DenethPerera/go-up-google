@@ -3,13 +3,14 @@ import React from "react";
 
 import { ICON_COLORS } from "../constants";
 import { LocationFormErrors, LocationFormState } from "../types";
+import { CategoryPicker } from "./CategoryPicker";
 import { FormTextInput } from "./FormTextInput";
 import { SectionCard } from "./SectionCard";
 
 interface Props {
   values: LocationFormState;
   errors: LocationFormErrors;
-  onChange: (field: keyof LocationFormState, value: string) => void;
+  onChange: (field: keyof LocationFormState, value: any) => void;
 }
 
 export function BusinessDetailsSection({ values, errors, onChange }: Props) {
@@ -54,11 +55,9 @@ export function BusinessDetailsSection({ values, errors, onChange }: Props) {
         error={errors.website}
         className="mb-0"
       />
-      <FormTextInput
-        label="Business Category"
-        placeholder="e.g., Technology, Retail, Services"
+      <CategoryPicker
         value={values.category}
-        onChangeText={(v) => onChange("category", v)}
+        onChange={(v) => onChange("category", v)}
         error={errors.category}
       />
       <FormTextInput

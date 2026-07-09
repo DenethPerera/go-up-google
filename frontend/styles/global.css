@@ -98,34 +98,55 @@
   --font-display: "Plus Jakarta Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --background: #ffffff;
-  --foreground: #001d39;
-  --card: #ffffff;
-  --card-foreground: #001d39;
-  --popover: #ffffff;
-  --popover-foreground: #001d39;
-  --primary: #0a4174;
-  --primary-foreground: #ffffff;
-  --secondary: #4e8ea2;
-  --secondary-foreground: #ffffff;
-  --muted: #daeaf4;
-  --muted-foreground: #49769f;
-  --accent: #7bbde8;
-  --accent-foreground: #001d39;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #daeaf4;
+   --background: #1E2B4D;
+   
+  --foreground: #F6F8FC;
+
+  --card: #3c5282;
+  --card-foreground: #F6F8FC;
+  --form-card: #2f3b65;
+
+  --popover: #354567;
+  --popover-foreground: #F6F8FC;
+
+  --primary: #5C80D6;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #8F63D5;
+  --secondary-foreground: #FFFFFF;
+
+  --thirdinary: #24315A;
+  --thirdinary-foreground: #1E2B4D;
+
+  --muted: #2C416B;
+  --muted-foreground: #C8D1E8;
+
+  --accent: #4be7a0;
+  --accent-foreground: #1E2B4D;
+
+  --destructive: #F36D6D;
+  --destructive-foreground: #FFFFFF;
+
+  --border: rgba(255,255,255,0.08);
+
+
+
   --input: transparent;
-  --input-background: rgba(255, 255, 255, 0.7);
-  --switch-background: #6ea2b3;
+  --input-background: rgba(255,255,255,0.06);
+
+  --switch-background: #5C80D6;
+
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #7bbde8;
-  --chart-1: #0a4174;
-  --chart-2: #4e8ea2;
-  --chart-3: #7bbde8;
-  --chart-4: #22c55e;
-  --chart-5: #f59e0b;
+
+  --ring: #6D92E8;
+
+  --chart-1: #5C80D6;
+  --chart-2: #8F63D5;
+  --chart-3: #4FE39A;
+  --chart-4: #E257A3;
+  --chart-5: #F6C453;
+
   --radius: 1rem;
 
   --sidebar: oklch(0.985 0 0);
@@ -220,18 +241,24 @@
     @apply w-full rounded-3xl border border-muted bg-card p-6 text-card-foreground shadow-sm;
   }
 
+   .form-input-card {
+    @apply w-full rounded-3xl border border-muted bg-formCard p-6 text-card-foreground shadow-sm;
+  }
+
+
+
+
   .input-label {
-    @apply mb-1.5 text-sm font-semibold text-muted-foreground;
+    @apply mb-1.5 text-sm font-semibold text-white;
   }
 
   .input-field {
-    @apply w-full rounded-2xl border border-muted bg-input-background px-4 py-3.5 text-base text-foreground transition-colors;
+    @apply w-full text-white rounded-2xl border border-white  px-4 py-3.5 text-base text-foreground transition-colors;
   }
 
-  .input-field-focus {
-    @apply border-border outline-none ring-1 ring-ring;
-  }
-
+  .input-field:focus {
+  @apply border-blue-400;
+}
   .btn-base {
     @apply flex w-full flex-row items-center justify-center rounded-2xl px-6 py-3.5 font-semibold transition-colors duration-200;
   }

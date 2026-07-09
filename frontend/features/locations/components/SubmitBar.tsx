@@ -22,8 +22,8 @@ export function SubmitBar({ isSubmitting, onSubmit }: Props) {
 
   return (
     <View
-      style={{ paddingBottom: tabBarHeight + 20 }}
-      className="bg-white px-6 pt-4 border-t border-border"
+      style={{ paddingBottom: tabBarHeight + 30 }}
+      className="bg-card px-6 pt-5"
     >
       <TouchableOpacity
         onPress={onSubmit}

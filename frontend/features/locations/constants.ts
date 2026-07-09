@@ -6,7 +6,7 @@ export const URL_REGEX = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*
 // hardcoding hex in every component, we mirror the relevant tokens from
 // globals.css once, here, and never reference a raw hex value anywhere else.
 export const ICON_COLORS = {
-  primary: "#0a4174",
+  primary: "#ffffff",
   white: "#ffffff",
   destructive: "#ef4444",
   facebook: "#1877F2",

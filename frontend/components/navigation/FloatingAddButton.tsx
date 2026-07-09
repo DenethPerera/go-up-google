@@ -23,12 +23,12 @@ export function FloatingAddButton({ onPress }: FloatingAddButtonProps) {
       activeOpacity={0.8}
       onPress={handlePress}
       style={{
-        top: Platform.OS === "ios" ? -25 : -20, // Elevates the button above the bar
+        top: Platform.OS === "ios" ? -25 : -28, // Elevates the button above the bar
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <View className="h-[60px] w-[60px] items-center justify-center rounded-full border-[4px] border-white bg-secondary shadow-lg shadow-[#001d39]/20">
+      <View className="h-[60px] w-[60px] items-center justify-center rounded-full border-[4px] border-thirdinary bg-accent shadow-lg shadow-[#001d39]/20">
         <Feather name="plus" size={28} color="#ffffff" />
       </View>
     </TouchableOpacity>

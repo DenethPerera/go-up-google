@@ -7,6 +7,8 @@ export interface LocationFormState {
   description: string;
   email: string;
   workingHours: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface SocialMediaState {

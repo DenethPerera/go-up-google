@@ -59,6 +59,8 @@ const createLocation = async ({ fields, files }) => {
     workingHours: fields.workingHours || '',
     social,
     photos: photoUrls,
+    latitude: fields.latitude ? Number(fields.latitude) : undefined,
+    longitude: fields.longitude ? Number(fields.longitude) : undefined,
   };
 
   return locationRepository.create(locationData);
@@ -110,6 +112,8 @@ const updateLocation = async (id, { fields, files, firebaseUid }) => {
     ...(fields.description !== undefined && { description: fields.description }),
     ...(fields.email !== undefined && { email: fields.email }),
     ...(fields.workingHours !== undefined && { workingHours: fields.workingHours }),
+    ...(fields.latitude !== undefined && { latitude: fields.latitude ? Number(fields.latitude) : null }),
+    ...(fields.longitude !== undefined && { longitude: fields.longitude ? Number(fields.longitude) : null }),
     social,
     // Append new photos to existing ones
     ...(newPhotoUrls.length > 0 && { $push: { photos: { $each: newPhotoUrls } } }),
