@@ -5,7 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "worker": "node src/workers/syncWorker.js",
+    "worker:dev": "nodemon src/workers/syncWorker.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,7 @@
   "description": "",
   "dependencies": {
     "axios": "^1.18.1",
+    "bullmq": "^5.80.1",
     "cloudinary": "^2.10.0",
     "cors": "^2.8.6",
     "csv-parser": "^3.2.1",
@@ -20,6 +23,7 @@
     "express": "^5.2.1",
     "firebase-admin": "^14.1.0",
     "googleapis": "^173.0.0",
+    "ioredis": "^5.11.1",
     "mongoos": "^0.0.1-security",
     "mongoose": "^9.7.3",
     "multer": "^2.2.0"

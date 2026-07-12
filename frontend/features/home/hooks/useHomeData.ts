@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { BusinessLocation, HomeSummary } from "../types";
+import { BusinessLocation, HomeSummary, toBusinessLocation } from "../types";
 import { fetchHomeSummary, fetchRecentLocations } from "../services/homeService";
+import { fetchLocations } from "@/features/locations/services/location.service";
 
 export function useHomeData() {
   const [summary, setSummary] = useState<HomeSummary | null>(null);
@@ -13,12 +14,24 @@ export function useHomeData() {
     try {
       isRefresh ? setIsRefreshing(true) : setIsLoading(true);
       setError(null);
-      const [summaryRes, locationsRes] = await Promise.all([
-        fetchHomeSummary(),
-        fetchRecentLocations(3),
-      ]);
-      setSummary(summaryRes);
-      setLocations(locationsRes);
+
+      // ── Single network call — no N+1, no race condition ──────────────────
+      const docs = await fetchLocations();
+
+      const approved = docs.filter((d) => d.status === "approved").length;
+      const pending   = docs.filter((d) => d.status === "pending").length;
+      const rejected  = docs.filter((d) => d.status === "rejected").length;
+
+      setSummary({
+        totalLocations: docs.length,
+        approved,
+        pending,
+        rejected,
+        syncFailures: 0, // deferred until platform sync is implemented
+      });
+
+      // Show the 3 most recent for the home screen preview
+      setLocations(docs.slice(0, 3).map(toBusinessLocation));
     } catch (e) {
       setError("Couldn't load your dashboard. Pull down to try again.");
     } finally {

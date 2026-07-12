@@ -14,7 +14,7 @@ const create = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
-  const locations = await locationService.getAllLocations();
+  const locations = await locationService.getAllLocations(req.uid);
   res.status(200).json({ success: true, count: locations.length, data: locations });
 };
 

@@ -10,6 +10,38 @@ const socialMediaSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// ── Per-platform sync tracking ──────────────────────────────────────────────
+// Each entry tracks the sync lifecycle for one platform (google, facebook, etc.)
+const syncStatusSchema = new mongoose.Schema(
+  {
+    platform: {
+      type: String,
+      required: true,
+      enum: ['google', 'facebook', 'bing', 'yelp', 'appleMaps'],
+    },
+    state: {
+      type: String,
+      enum: ['idle', 'syncing', 'success', 'failed'],
+      default: 'idle',
+    },
+    lastSyncedAt: {
+      type: Date,
+      default: null,
+    },
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    // Platform-specific external ID returned after first successful sync.
+    // Google: the location resource name, e.g. 'locations/123456789'
+    externalId: {
+      type: String,
+      default: '',
+    },
+  },
+  { _id: false }
+);
+
 const locationSchema = new mongoose.Schema(
   {
     name: {
@@ -54,9 +86,8 @@ const locationSchema = new mongoose.Schema(
       default: '',
     },
     workingHours: {
-      type: String,
-      trim: true,
-      default: '',
+      type: Object,
+      default: {},
     },
     social: {
       type: socialMediaSchema,
@@ -78,6 +109,16 @@ const locationSchema = new mongoose.Schema(
       type: String,
       enum: ['pending', 'approved', 'rejected'],
       default: 'pending',
+    },
+    /**
+     * Per-platform sync state.
+     * Initialized as empty — entries are added when the user first triggers
+     * a sync for a given platform. Each entry tracks state, timestamps,
+     * errors, and the external platform ID.
+     */
+    syncStatus: {
+      type: [syncStatusSchema],
+      default: [],
     },
   },
   {

@@ -47,6 +47,15 @@ const createLocation = async ({ fields, files }) => {
     }
   }
 
+  let workingHours = {};
+  if (fields.workingHours) {
+    try {
+      workingHours = typeof fields.workingHours === 'string' ? JSON.parse(fields.workingHours) : fields.workingHours;
+    } catch {
+      workingHours = {};
+    }
+  }
+
   const locationData = {
     name: fields.name,
     address: fields.address,
@@ -56,7 +65,7 @@ const createLocation = async ({ fields, files }) => {
     category: fields.category || '',
     description: fields.description || '',
     email: fields.email || '',
-    workingHours: fields.workingHours || '',
+    workingHours,
     social,
     photos: photoUrls,
     latitude: fields.latitude ? Number(fields.latitude) : undefined,
@@ -66,7 +75,11 @@ const createLocation = async ({ fields, files }) => {
   return locationRepository.create(locationData);
 };
 
-const getAllLocations = async () => locationRepository.findAll();
+/**
+ * Return all locations owned by the given Firebase user, newest-first.
+ * Delegates to findByUser so the query is always uid-scoped.
+ */
+const getAllLocations = async (firebaseUid) => locationRepository.findByUser(firebaseUid);
 
 const getLocationById = async (id) => {
   const location = await locationRepository.findById(id);
@@ -103,6 +116,15 @@ const updateLocation = async (id, { fields, files, firebaseUid }) => {
     }
   }
 
+  let workingHours = existing.workingHours;
+  if (fields.workingHours !== undefined) {
+    try {
+      workingHours = typeof fields.workingHours === 'string' ? JSON.parse(fields.workingHours) : fields.workingHours;
+    } catch {
+      workingHours = existing.workingHours;
+    }
+  }
+
   const updateData = {
     ...(fields.name && { name: fields.name }),
     ...(fields.address && { address: fields.address }),
@@ -111,7 +133,7 @@ const updateLocation = async (id, { fields, files, firebaseUid }) => {
     ...(fields.category !== undefined && { category: fields.category }),
     ...(fields.description !== undefined && { description: fields.description }),
     ...(fields.email !== undefined && { email: fields.email }),
-    ...(fields.workingHours !== undefined && { workingHours: fields.workingHours }),
+    ...(fields.workingHours !== undefined && { workingHours }),
     ...(fields.latitude !== undefined && { latitude: fields.latitude ? Number(fields.latitude) : null }),
     ...(fields.longitude !== undefined && { longitude: fields.longitude ? Number(fields.longitude) : null }),
     social,

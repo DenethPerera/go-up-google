@@ -4,6 +4,7 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const locationRoutes  = require('./features/locations/location.routes');
 const categoryRoutes  = require('./features/categories/category.routes');
+const syncRoutes      = require('./features/sync/sync.routes');
 const { globalErrorHandler } = require('./middleware/errorHandler');
 
 // ─── Database ────────────────────────────────────────────────────────────────
@@ -25,6 +26,7 @@ app.get('/api/status', (_req, res) => {
 
 app.use('/api/locations',  locationRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/sync',       syncRoutes);
 
 
 app.use(globalErrorHandler);

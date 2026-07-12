@@ -1,6 +1,6 @@
 import axiosInstance from '@/lib/axiosInstance';
 import { auth } from '@/config/firebase';
-import { LocationDocument, PhotoAsset } from '../types';
+import { LocationDocument, PhotoAsset, WeeklyHours } from '../types';
 
 export interface CreateLocationPayload {
   name: string;
@@ -10,7 +10,7 @@ export interface CreateLocationPayload {
   category: string;
   description: string;
   email: string;
-  workingHours: string;
+  workingHours: WeeklyHours;
   latitude?: number;
   longitude?: number;
   social: {
@@ -36,7 +36,7 @@ export const submitLocation = async (
   formData.append('category', payload.category);
   formData.append('description', payload.description);
   formData.append('email', payload.email);
-  formData.append('workingHours', payload.workingHours);
+  formData.append('workingHours', JSON.stringify(payload.workingHours));
 
   if (payload.latitude !== undefined && payload.latitude !== null) {
     formData.append('latitude', String(payload.latitude));

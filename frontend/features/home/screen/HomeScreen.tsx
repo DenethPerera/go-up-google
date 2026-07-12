@@ -37,6 +37,10 @@ export default function HomeScreen() {
     console.log("Navigate to: edit location", id);
   };
 
+  const handleLocationPress = (id: string) => {
+    router.push(`/location/${id}` as any);
+  };
+
   const handleSeeAllLocations = () => {
     router.push("/(tabs)/locations");
   };
@@ -91,6 +95,7 @@ export default function HomeScreen() {
           onUpdateLocation={updateLocation}
           onDeleteLocation={removeLocation}
           onEditLocation={handleEditLocation}
+          onLocationPress={handleLocationPress}
         />
       </ScrollView>
     </LinearGradient>

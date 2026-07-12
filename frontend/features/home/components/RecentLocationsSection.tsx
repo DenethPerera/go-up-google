@@ -11,9 +11,10 @@ interface Props {
   onUpdateLocation: (loc: BusinessLocation) => void;
   onDeleteLocation: (id: string) => void;
   onEditLocation: (id: string) => void;
+  onLocationPress: (id: string) => void;
 }
 
-export default function RecentLocationsSection({ locations, onSeeAll, onAddLocation, onUpdateLocation, onDeleteLocation, onEditLocation }: Props) {
+export default function RecentLocationsSection({ locations, onSeeAll, onAddLocation, onUpdateLocation, onDeleteLocation, onEditLocation, onLocationPress }: Props) {
   return (
     <View className="mt-6">
       <View className="mb-5 flex-row items-center justify-between">
@@ -30,7 +31,7 @@ export default function RecentLocationsSection({ locations, onSeeAll, onAddLocat
         <EmptyLocationsState onCreate={onAddLocation} />
       ) : (
         locations.map((loc) => (
-          <LocationCard key={loc.id} location={loc} onUpdate={onUpdateLocation} onDelete={onDeleteLocation} onEdit={onEditLocation} />
+          <LocationCard key={loc.id} location={loc} onUpdate={onUpdateLocation} onDelete={onDeleteLocation} onEdit={onEditLocation} onPress={onLocationPress} />
         ))
       )}
     </View>

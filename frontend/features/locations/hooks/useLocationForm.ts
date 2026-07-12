@@ -15,7 +15,7 @@ const INITIAL_FORM: LocationFormState = {
   category: "",
   description: "",
   email: "",
-  workingHours: "",
+  workingHours: {},
   latitude: undefined,
   longitude: undefined,
 };
@@ -45,7 +45,7 @@ export function useLocationForm() {
   const { mutate, isPending: isSubmitting } = useSubmitLocation({ onSuccess: reset });
 
   // ─── Field updates ────────────────────────────────────────────────────────
-  const updateField = (field: keyof LocationFormState, value: string | number | undefined) => {
+  const updateField = (field: keyof LocationFormState, value: any) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
