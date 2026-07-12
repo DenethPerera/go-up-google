@@ -12,9 +12,10 @@ interface Props {
   onUpdate: (updated: BusinessLocation) => void;
   onDelete: (id: string) => void;
   onEdit: (id: string) => void;
+  onPress: (id: string) => void;
 }
 
-export default function LocationCard({ location, onUpdate, onDelete, onEdit }: Props) {
+export default function LocationCard({ location, onUpdate, onDelete, onEdit, onPress }: Props) {
   const { syncOne, syncAll, syncingAll } = useLocationSync(location, onUpdate);
   const [menuOpen, setMenuOpen] = useState(false);
   const failedPlatforms = location.platforms.filter((p) => p.state === "failed");
@@ -39,7 +40,9 @@ export default function LocationCard({ location, onUpdate, onDelete, onEdit }: P
         <Image source={{ uri: location.coverImage }} className="h-14 w-14 rounded-2xl bg-muted" />
         <View className="flex-1">
           <View className="flex-row items-start justify-between">
-            <Text className="h4 text-foreground pr-2" numberOfLines={1}>{location.name}</Text>
+            <Pressable onPress={() => onPress(location.id)} className="flex-1 pr-2">
+              <Text className="h4 text-foreground" numberOfLines={1}>{location.name}</Text>
+            </Pressable>
             <Pressable onPress={() => setMenuOpen((v) => !v)} hitSlop={8}>
               <MoreVertical size={18} color="#ffffff" />
             </Pressable>

@@ -17,7 +17,7 @@ const router = express.Router();
 router
   .route('/')
   .post(firebaseAuth, upload.array('photos', 10), asyncHandler(controller.create))
-  .get(asyncHandler(controller.getAll));
+  .get(firebaseAuth, asyncHandler(controller.getAll));
 
 router
   .route('/:id')

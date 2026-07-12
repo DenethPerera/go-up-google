@@ -6,6 +6,7 @@ import { LocationFormErrors, LocationFormState } from "../types";
 import { CategoryPicker } from "./CategoryPicker";
 import { FormTextInput } from "./FormTextInput";
 import { SectionCard } from "./SectionCard";
+import { WorkingHoursPicker } from "./WorkingHoursPicker";
 
 interface Props {
   values: LocationFormState;
@@ -79,13 +80,10 @@ export function BusinessDetailsSection({ values, errors, onChange }: Props) {
         autoCapitalize="none"
         error={errors.email}
       />
-      <FormTextInput
-        label="Working Hours"
-        placeholder="e.g., 9:00 AM - 5:00 PM"
+      <WorkingHoursPicker
         value={values.workingHours}
-        onChangeText={(v) => onChange("workingHours", v)}
+        onChange={(v) => onChange("workingHours", v)}
         error={errors.workingHours}
-        className="mb-0"
       />
     </SectionCard>
   );

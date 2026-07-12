@@ -9,15 +9,14 @@ const categorySchema = new mongoose.Schema({
     value: {
         type: String,
         required: true,
-        unique: true, // මේකෙන් Duplicates හැදෙන එක නවත්වනවා වගේම Auto Index වෙනවා
+        unique: true, 
         trim: true
     }
 }, {
-    timestamps: true // Database එකට දත්ත එකතු වූ වේලාව සහ යාවත්කාලීන වූ වේලාව ස්වයංක්‍රීයව සටහන් කරයි
+    timestamps: true 
 });
 
-// 🚀 Performance Optimization: 
-// User ලා App එකේ Search කරද්දී ඉක්මනට හොයාගන්න label එකට Index එකක් දැමීම
+
 categorySchema.index({ label: 1 });
 
 const Category = mongoose.model('Category', categorySchema);
